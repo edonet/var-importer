@@ -21,7 +21,7 @@ const
         babelrc: false,
         env: process.env,
         plugins: [
-            path.resolve(__dirname, '../node_modules/babel-plugin-transform-es2015-modules-commonjs')
+            'transform-es2015-modules-commonjs'
         ]
     };
 
