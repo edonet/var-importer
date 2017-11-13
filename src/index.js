@@ -38,15 +38,16 @@ module.exports = ({ data, alias, test = regexp, callback } = {}) => {
             return cb({ contents: sassify(data[url]) });
         }
 
+        // 替换别名
+        let name = alias(url);
+
+        // 处理用户目录
+        if (name.startsWith('~')) {
+            return cb(name);
+        }
+
         // 处理配置文件
-        if (test.test(url)) {
-
-            let name = alias(url);
-
-            // 替换别名
-            if (name.startsWith('~')) {
-                return cb(name);
-            }
+        if (test.test(name)) {
 
             // 获取文件路径
             name = path.resolve(path.dirname(context), name);

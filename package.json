@@ -1,6 +1,6 @@
 {
   "name": "var-importer",
-  "version": "0.1.002",
+  "version": "0.1.003",
   "description": "Javascript variable importer for sass",
   "main": "src/index.js",
   "repository": "https://github.com/edonet/var-importer.git",

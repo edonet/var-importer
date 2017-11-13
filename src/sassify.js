@@ -31,8 +31,13 @@ function sassify(data) {
         let keys = Object.keys(data),
             code = '';
 
+        // 生成【sass】代码
         for (let name of keys) {
-            code += `$${ name }: ${ data[name] };\n`;
+            if (name === 'default') {
+                code += sassify(data.default);
+            } else {
+                code += `$${ name }: ${ data[name] };\n`;
+            }
         }
 
         return code;
