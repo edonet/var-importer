@@ -51,7 +51,7 @@ module.exports = ({ data, alias, callback } = {}) => {
 
         // 处理【json】文件
         if (name.endsWith('.json')) {
-            fs.readFile(name, (err, data) => {
+            return fs.readFile(name, (err, data) => {
 
                 // 返回错误信息
                 if (err) {
