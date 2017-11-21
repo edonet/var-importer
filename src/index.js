@@ -13,6 +13,7 @@
  *****************************************
  */
 const
+    fs = require('fs'),
     path = require('path'),
     sassify = require('./sassify'),
     resolveAlias = require('./resolveAlias'),
@@ -50,11 +51,20 @@ module.exports = ({ data, alias, callback } = {}) => {
 
         // 处理【json】文件
         if (name.endsWith('.json')) {
-            try {
-                return cb({ file: name, contents: sassify(require(name)) });
-            } catch (err) {
-                return cb(err);
-            }
+            fs.readFile(name, (err, data) => {
+
+                // 返回错误信息
+                if (err) {
+                    return cb(err);
+                }
+
+                // 转换数据
+                try {
+                    return cb({ file: name, contents: sassify(JSON.parse(data)) });
+                } catch (err) {
+                    return cb(err);
+                }
+            });
         }
 
         // 处理【js】文件
