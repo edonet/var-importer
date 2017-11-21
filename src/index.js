@@ -16,8 +16,7 @@ const
     path = require('path'),
     sassify = require('./sassify'),
     resolveAlias = require('./resolveAlias'),
-    resolveFile = require('./resolveFile'),
-    regexp = /\.js(on)?(\?.+)?$/;
+    resolveFile = require('./resolveFile');
 
 
 /**
@@ -25,7 +24,7 @@ const
  * 抛出接口
  *****************************************
  */
-module.exports = ({ data, alias, test = regexp, callback } = {}) => {
+module.exports = ({ data, alias, callback } = {}) => {
 
     // 生成别名解析器
     alias = resolveAlias(alias);
@@ -46,11 +45,20 @@ module.exports = ({ data, alias, test = regexp, callback } = {}) => {
             return cb(name);
         }
 
-        // 处理配置文件
-        if (test.test(name)) {
+        // 获取文件路径
+        name = path.resolve(path.dirname(context), name);
 
-            // 获取文件路径
-            name = path.resolve(path.dirname(context), name);
+        // 处理【json】文件
+        if (name.endsWith('.json')) {
+            try {
+                return cb({ file: name, contents: sassify(require(name)) });
+            } catch (err) {
+                return cb(err);
+            }
+        }
+
+        // 处理【js】文件
+        if (name.endsWith('.js')) {
 
             // 加载文件
             return resolveFile(name, (err, data) => {
@@ -64,7 +72,7 @@ module.exports = ({ data, alias, test = regexp, callback } = {}) => {
                 callback && callback(name, data);
 
                 // 解析数据
-                return cb({ contents: sassify(data) });
+                return cb({ file: name, contents: sassify(data) });
             });
         }
 
