@@ -31,7 +31,7 @@ const
  * 抛出接口
  *****************************************
  */
-module.exports = (src, options, callback) => {
+module.exports = (src, callback) => {
 
     // 加载文件
     return babel.transformFile(src, babelOptions, (err, res) => {
