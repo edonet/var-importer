@@ -46,7 +46,7 @@ module.exports = alias => {
 
 
         // 判断是否完全配置
-        if (/\$$/.test(key)) {
+        if (key.endsWith('$')) {
             patt.name = key.slice(0, -1);
             patt.test = url => url === patt.name;
         }
