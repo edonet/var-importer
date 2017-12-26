@@ -55,7 +55,7 @@ module.exports = ({ data, alias, callback } = {}) => {
 
                 // 返回错误信息
                 if (err) {
-                    return cb(err);
+                    return cb({ file: name, contents: '' });
                 }
 
                 // 转换数据
@@ -75,7 +75,7 @@ module.exports = ({ data, alias, callback } = {}) => {
 
                 // 返回错误
                 if (err) {
-                    return cb(err);
+                    return cb({ file: name, contents: '' });
                 }
 
                 // 执行成功回调
@@ -87,7 +87,7 @@ module.exports = ({ data, alias, callback } = {}) => {
         }
 
         // 返回源路径
-        return cb(url);
+        return cb({ file: name });
     };
 };
 

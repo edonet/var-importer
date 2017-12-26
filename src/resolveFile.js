@@ -33,26 +33,8 @@ const
  */
 module.exports = (src, options, callback) => {
 
-    // 获取文件路径
-    src = path.resolve(src);
-
-    // 获取参数
-    if (typeof options === 'function') {
-        callback = options;
-        options = babelOptions;
-    }
-
-    // 加载【json】文件
-    if (src.endsWith('.json')) {
-        try {
-            return callback(null, require(src));
-        } catch (err) {
-            return callback(err);
-        }
-    }
-
     // 加载文件
-    return babel.transformFile(src, options, (err, res) => {
+    return babel.transformFile(src, babelOptions, (err, res) => {
 
         // 返回错误
         if (err) {
