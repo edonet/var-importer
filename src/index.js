@@ -87,7 +87,7 @@ module.exports = ({ data, alias, callback } = {}) => {
         }
 
         // 返回源路径
-        return cb({ file: name });
+        return cb(url);
     };
 };
 
